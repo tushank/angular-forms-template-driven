@@ -27,14 +27,23 @@ export class AdminAccountComponent implements OnInit {
       adminDescription: '',
       adminGroups: ''
     };
+  }
+
+  ngAfterViewInit() {
     this.appService.productDataSubject.subscribe((product) => {
       console.log(product);
-      this.model.loginName = product.loginName;
-      this.model.password = product.password;
-      this.model.fullName = product.fullName;
-      this.model.adminDescription = product.adminDescription;
-      this.model.adminGroups = product.adminGroups;
+      if (product) {
+        this.signupForm.form.patchValue({
+          loginName: product.loginName,
+          password: product.password,
+          fullName: product.fullName,
+          adminDescription: product.adminDescription,
+          adminGroups: product.adminGroups
+        });
+        console.log('after : ', this.signupForm);
+      }
     });
+
   }
 
   onSubmit(): void {
@@ -48,5 +57,6 @@ export class AdminAccountComponent implements OnInit {
     console.log('model : ', this.model);
     this.modelData.push(this.model);
     localStorage.setItem('adminAccountData', JSON.stringify(this.modelData));
+    this.signupForm.reset();
   }
 }
