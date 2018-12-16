@@ -4,3 +4,29 @@
 </p>
 
 <button type="button" class="btn btn-primary" (click)="openModalWithComponent()">Create modal with component</button>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Action</th>
+      <th scope="col">Login Name</th>
+      <th scope="col">Password</th>
+      <th scope="col">Full Name</th>
+      <th scope="col">Admin Description</th>
+      <th scope="col">Admin Group Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let product of getLocalData; let i = index' >
+      <th>
+        <button type="button" class="btn btn-link" (click)="openModalWithComponent(product)">edit</button>
+      </th>
+      <td>{{product.loginName}}</td>
+      <td>{{product.password}}</td>
+      <td>{{product.fullName}}</td>
+      <td>{{product.adminDescription}}</td>
+      <td>{{product.adminGroups}}</td>
+    </tr>
+  </tbody>
+</table>

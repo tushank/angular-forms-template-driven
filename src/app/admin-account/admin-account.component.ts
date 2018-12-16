@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IAdminAccount } from './admin-account';
 import { BsModalRef } from 'ngx-bootstrap';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-admin-account',
@@ -13,8 +14,9 @@ export class AdminAccountComponent implements OnInit {
   defaultAdminGroups = 'administrator';
   model: IAdminAccount;
   submitted = false;
+  modelData: IAdminAccount[] = [];
 
-  constructor(public bsModalRef: BsModalRef) {}
+  constructor(public bsModalRef: BsModalRef, private appService: AppService) { }
 
 
   ngOnInit() {
@@ -25,6 +27,14 @@ export class AdminAccountComponent implements OnInit {
       adminDescription: '',
       adminGroups: ''
     };
+    this.appService.productDataSubject.subscribe((product) => {
+      console.log(product);
+      this.model.loginName = product.loginName;
+      this.model.password = product.password;
+      this.model.fullName = product.fullName;
+      this.model.adminDescription = product.adminDescription;
+      this.model.adminGroups = product.adminGroups;
+    });
   }
 
   onSubmit(): void {
@@ -36,5 +46,7 @@ export class AdminAccountComponent implements OnInit {
     this.model.adminDescription = this.signupForm.value.adminDescription;
     this.model.adminGroups = this.signupForm.value.adminGroups;
     console.log('model : ', this.model);
+    this.modelData.push(this.model);
+    localStorage.setItem('adminAccountData', JSON.stringify(this.modelData));
   }
 }

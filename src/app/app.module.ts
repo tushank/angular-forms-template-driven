@@ -20,6 +20,7 @@ import { ModalModule } from 'ngx-bootstrap';
     FormsModule,
     ModalModule.forRoot(),
   ],
+  entryComponents: [AdminAccountComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
