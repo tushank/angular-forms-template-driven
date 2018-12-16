@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IAdminAccount } from './admin-account';
+import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-admin-account',
@@ -12,6 +13,8 @@ export class AdminAccountComponent implements OnInit {
   defaultAdminGroups = 'administrator';
   model: IAdminAccount;
   submitted = false;
+
+  constructor(public bsModalRef: BsModalRef) {}
 
 
   ngOnInit() {
